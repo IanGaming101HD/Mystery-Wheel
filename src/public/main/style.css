@@ -1,0 +1,55 @@
+html {
+    user-select: none;
+}
+
+.container {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.wheel-container {
+    margin-left: 30.5%;
+    border-radius: 500px;
+    padding: 400px;
+    padding-top: 700px;
+    border: 5px solid #000000;
+}
+
+.pointer {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid #000000;
+    position:relative;
+}
+.pointer:after{
+    content:'';
+    position:absolute;
+    top: 8px;
+    left:-45px;
+    width: 0;
+    height: 0;
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    border-bottom: 92px solid white;
+}
+
+.spin-button {
+    cursor: pointer;
+    border-radius: 500px;
+    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 5px solid #000000;
+    background-color: #ffffff;
+}
+
+.text-box {
+    width: 300px;
+    padding-bottom: 400px;
+    resize: none;
+}
