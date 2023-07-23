@@ -6,6 +6,7 @@ let wheel = []
 
 class newSector {
     static previousColour = null
+    static newAngle = 0
     constructor(name) {
         this.name = name
         this.colour = null
@@ -36,6 +37,10 @@ class newSector {
         sectorContainer.appendChild(sector)
         sector.classList.add('sector')
         sector.style['backgroundColor'] = this.colour
+        sector.style['background'] = `conic-gradient(${this.colour} ${100 / colours.length}%, transparent 25%)`
+        sector.style['transform'] = `rotate(${newSector.newAngle}deg)`
+
+        newSector.newAngle += 360 / colours.length
 
         wheel.push(this.name)
     }
