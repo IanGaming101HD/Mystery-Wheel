@@ -39,7 +39,7 @@ class Sector {
         sectorContainer.appendChild(sector)
         sector.appendChild(sectorLabel)
         sector.classList.add('sector')
-        // sector.style['backgroundColor'] = this.colour
+        sector.style['background-color'] = this.colour
         sector.style['background'] = `conic-gradient(${this.colour} ${100 / colours.length}%, transparent 25%)`
         sector.style['transform'] = `rotate(${Sector.newAngle}deg)`
 
@@ -108,11 +108,10 @@ function spin(event) {
     let milisecondsTotal = 0
     let milisecondsLimit = getRandomNumber(0, 5000)
     let rotationAmount = 10
-    let looped = 1
-
+    let loops = 1
 
     let loop = setInterval(() => {
-        looped += 1
+        loops += 1
         milisecondsTotal += miliseconds
 
         if (milisecondsTotal >= milisecondsLimit) {
@@ -122,15 +121,16 @@ function spin(event) {
             let pointerY = pointerRect.top - 100;
             let touchedSector = document.elementFromPoint(pointerX, pointerY);
             let touchedSectorName = Array.from(touchedSector.children)[0].innerText
-            console.log(touchedSectorName)
+            let touchedSectorColour = getComputedStyle(touchedSector)['background-color']
+            console.log(touchedSectorName, touchedSectorColour)
             
             currentlySpinning = false
             clearInterval(loop)
-            popup(touchedSectorName)
+            popup(touchedSectorName, touchedSectorColour)
         }
 
         Array.from(sectorContainer.children).forEach((element) => {
-            element.style['transform'] = `rotate(${getRotation(element) + (rotationAmount * looped)}deg)`
+            element.style['transform'] = `rotate(${getRotation(element) + (rotationAmount * loops)}deg)`
         })
     }, miliseconds)
 }
@@ -139,16 +139,17 @@ function closeElement(element) {
     element.hidden = true
 }
 
-function popup(winner) {
+function popup(winner, colour) {
     document.body.innerHTML = document.body.innerHTML.replace('$winner', winner)
 
     let popupContainer = document.getElementById('popup-container')
+    let headerContainer = document.getElementById('header-container')
     let closeButton = document.getElementById('close-button')
     let closeButton2 = document.getElementById('close-button2')
     let removeButton = document.getElementById('remove-button')
 
-    console.log()
     popupContainer.hidden = false
+    headerContainer.style['background-color'] = colour
 
     closeButton.addEventListener('click', () => {
         closeElement(popupContainer)

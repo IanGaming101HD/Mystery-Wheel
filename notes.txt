@@ -1,0 +1,5 @@
+fix pointer detection
+fix color in popup
+fix textbox/sector change -> not showing all sectors/overlapping
+textbox disappear at the end of spin
+prevent spinning again whilst wheel is being spun
