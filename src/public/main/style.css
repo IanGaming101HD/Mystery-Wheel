@@ -25,7 +25,7 @@ h1 {
     position: relative;
     margin-left: 22.5px;
     margin-bottom: 7.5px;
-    z-index: 1;
+    z-index: 4;
     width: 0;
     height: 0;
     border-left: 25px solid transparent;
@@ -45,9 +45,11 @@ h1 {
 }
 
 .spin-button {
+    font-size: 25px;
+    /* font-weight: bold; */
     margin-top: -20px;
     position: relative;
-    z-index: 2;
+    z-index: 5;
     cursor: pointer;
     border-radius: 500px;
     height: 100px;
@@ -57,25 +59,41 @@ h1 {
 }
 
 .button-container {
+    position: absolute;
+    margin-left: 5px;
     margin-top: -50px;
 }
 
 .sector-container {
-    margin-top: -500px;
-    margin-left: -500px;
+    position: relative;
+    z-index: 2;
+    margin-top: -750px;
+    margin-left: -750px;
 }
 
 .text-box {
+    font-size: 20px;
     position: absolute;
-    top: 20%;
+    right: 2%;
+    top: 22.5%;
     width: 300px;
     padding-bottom: 400px;
     resize: none;
 }
 
 .sector {
+    display: flex;
+    /* justify-content: flex-start;
+    align-items: flex-start; */
     position: absolute;
     border-radius: 500px;
     height: 750px;
     width: 750px;
+}
+
+.sector-label {
+    /* color: #ffffff; */
+    margin-left: 65%;
+    margin-top: 22.5%;
+    font-size: 50px;
 }
