@@ -13,12 +13,22 @@
         <div class='wheel-container'>
             <div id='sector-container' class='sector-container'></div>
             <div class='button-container'>
-                <div class='pointer'></div>
+                <div id='pointer' class='pointer'></div>
                 <button id='spin-button' class='spin-button'>SPIN</button>
             </div>
         </div>
         <textarea id='text-box' class='text-box'></textarea>
-        <div id='test' class='test'></div>
+        <div id='popup-container' class='popup-container' hidden>
+            <div class='header-container'>
+                <h2>We have a winner</h2>
+                <button id='close-button' class='close-button'>x</button>
+            </div>
+            <div class='body-container'>
+                <h3 id='winner'>$winner</h3>
+                <button id='close-button2' class='close-button'>Close</button>
+                <button id='remove-button' class='remove-button'>Remove</button>
+            </div>
+        </div>
     </div>
     <script src='script.js'></script>
 </body>

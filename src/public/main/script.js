@@ -81,8 +81,8 @@ function defaultInput() {
 }
 
 function getRotation(element) {
-    let computedStyle = window.getComputedStyle(element);
-    let transformValue = computedStyle.getPropertyValue('transform');
+    let computedStyle = element.style
+    let transformValue = computedStyle.getPropertyValue('transform')
 
     let amount = 0
     if (transformValue && transformValue !== 'none') {
@@ -94,34 +94,72 @@ function getRotation(element) {
     return amount;
 }
 
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+  
+
 function spin(event) {
     if (currentlySpinning) return
-    console.log('hi')
     currentlySpinning = true
 
     let sectorContainer = document.getElementById('sector-container')
     let miliseconds = 10
     let milisecondsTotal = 0
-    let milisecondsLimit = 5000
+    let milisecondsLimit = getRandomNumber(0, 5000)
     let rotationAmount = 10
     let looped = 1
-    // sector.style['transform'] = `rotate(${Sector.newAngle}deg)`
+
 
     let loop = setInterval(() => {
         looped += 1
-        currentlySpinning = false
         milisecondsTotal += miliseconds
 
         if (milisecondsTotal >= milisecondsLimit) {
+            let pointer = document.getElementById('pointer')
+            let pointerRect = pointer.getBoundingClientRect();
+            let pointerX = pointerRect.left + pointerRect.width / 2;
+            let pointerY = pointerRect.top - 100;
+            let touchedSector = document.elementFromPoint(pointerX, pointerY);
+            console.log(touchedSector)
+            console.log(Array.from(touchedSector))
+            console.log(Array.from(touchedSector).children)
+            let touchedSectorName = Array.from(touchedSector).children[0].innerText
+            
+            currentlySpinning = false
             clearInterval(loop)
+            popup(touchedSectorName)
         }
 
         Array.from(sectorContainer.children).forEach((element) => {
-            console.log(getRotation(element))
             element.style['transform'] = `rotate(${getRotation(element) + (rotationAmount * looped)}deg)`
         })
     }, miliseconds)
-    currentlySpinning = false
+}
+
+function closeElement(element) {
+    element.hidden = true
+}
+
+function popup(element) {
+    let popupContainer = document.getElementById('popup-container')
+    let closeButton = document.getElementById('close-button')
+    let closeButton2 = document.getElementById('close-button2')
+    let removeButton = document.getElementById('remove-button')
+
+    popupContainer.hidden = false
+
+    closeButton.addEventListener('click', () => {
+        closeElement(popupContainer)
+    }, false)
+    closeButton2.addEventListener('click', () => {
+        closeElement(popupContainer)
+    }, false)
+    removeButton.addEventListener('click', () => {
+        // remove winning sector
+        
+        closeElement(popupContainer)
+    }, false)
 }
 
 defaultInput()
