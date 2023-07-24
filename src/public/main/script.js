@@ -121,10 +121,8 @@ function spin(event) {
             let pointerX = pointerRect.left + pointerRect.width / 2;
             let pointerY = pointerRect.top - 100;
             let touchedSector = document.elementFromPoint(pointerX, pointerY);
-            console.log(touchedSector)
-            console.log(Array.from(touchedSector))
-            console.log(Array.from(touchedSector).children)
-            let touchedSectorName = Array.from(touchedSector).children[0].innerText
+            let touchedSectorName = Array.from(touchedSector.children)[0].innerText
+            console.log(touchedSectorName)
             
             currentlySpinning = false
             clearInterval(loop)
@@ -141,12 +139,15 @@ function closeElement(element) {
     element.hidden = true
 }
 
-function popup(element) {
+function popup(winner) {
+    document.body.innerHTML = document.body.innerHTML.replace('$winner', winner)
+
     let popupContainer = document.getElementById('popup-container')
     let closeButton = document.getElementById('close-button')
     let closeButton2 = document.getElementById('close-button2')
     let removeButton = document.getElementById('remove-button')
 
+    console.log()
     popupContainer.hidden = false
 
     closeButton.addEventListener('click', () => {
@@ -156,8 +157,7 @@ function popup(element) {
         closeElement(popupContainer)
     }, false)
     removeButton.addEventListener('click', () => {
-        // remove winning sector
-        
+        wheel = wheel.filter((element) => element !== winner)
         closeElement(popupContainer)
     }, false)
 }

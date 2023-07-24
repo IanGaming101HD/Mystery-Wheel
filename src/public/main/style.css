@@ -97,3 +97,66 @@ h1 {
     margin-top: 22.5%;
     font-size: 50px;
 }
+
+.popup-container {
+    position: absolute;
+    z-index: 10;
+    border-radius: 10px;
+    left: 625px;
+    top: 300px;
+    padding-left: 20px;
+    width: 680px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+    border: #000000 1px solid;
+}
+
+button {
+    cursor: pointer;
+}
+
+.header-container {
+    margin-left: -20px;
+    padding-left: 20px;
+    margin-top: -10px;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    background-color: #d50f25;
+}
+
+.close-button {
+    margin-left: auto;
+    margin-right: 10px;
+    font-size: 25px;
+    color: #ffffff;
+    border: none;
+    background-color: transparent;
+}
+
+.popup-buttons {
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    font-weight: bold;
+}
+
+.close-button2 {
+    margin-left: 81%;
+    background-color: transparent;
+}
+
+.remove-button {
+    padding: 10px;
+    padding-top: 10px;
+    padding-top: 10px;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #3369e8;
+}
+
+.winner {
+    font-size: 40px;
+    font-weight: normal;
+}
