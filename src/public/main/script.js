@@ -8,6 +8,7 @@ let wheel = []
 class Sector {
     static previousColour = null
     static newAngle = 0
+    static default = true
     constructor(name) {
         this.name = name
         this.colour = null
@@ -25,6 +26,7 @@ class Sector {
 
         if (!Sector.previousColour || wheel.length === 0) {
             this.colour = colours[0]
+            Sector.newAngle = 0
         } else {
             this.colour = colours[colours.indexOf(Sector.previousColour) + 1]
         }
@@ -40,12 +42,16 @@ class Sector {
         sector.appendChild(sectorLabel)
         sector.classList.add('sector')
         sector.style['background-color'] = this.colour
-        sector.style['background'] = `conic-gradient(${this.colour} ${100 / colours.length}%, transparent 25%)`
+        sector.style['background'] = `conic-gradient(${this.colour} ${100 / (Sector.default ? colours.length : wheel.length)}%, transparent 25%)`
         sector.style['transform'] = `rotate(${Sector.newAngle}deg)`
-
-        Sector.newAngle += 360 / colours.length
+        console.log(wheel)
 
         wheel.push(this.name)
+        Sector.newAngle += 360 / (Sector.default ? colours.length : wheel.length)
+
+        if (Sector.default) {
+            Sector.default = false
+        }
     }
 }
 
@@ -163,6 +169,6 @@ function popup(winner, colour) {
     }, false)
 }
 
-defaultInput()
+// defaultInput()
 textBox.addEventListener('input', getInput, false)
 spinButton.addEventListener('click', spin, false)
