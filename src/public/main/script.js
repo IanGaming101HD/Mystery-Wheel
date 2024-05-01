@@ -6,7 +6,7 @@ let colours = ['#3369e8', '#d50f25', '#eeb211', '#009925']
 let wheel = []
 
 class Sector {
-    static previousColour = null
+    static previousColour = colours[colours.length - 1]
     static newAngle = 0
     static default = true
     constructor(name) {
@@ -19,35 +19,37 @@ class Sector {
         return `${this.name} ${this.colour}`;
     }
 
+    nextColour(colour) {
+        return colours[colours.length - 1] === colours[colours.indexOf(colour) + 1] ? colour[0] : colours[colours.indexOf(colour) + 1]
+    }
+
     create() {
         let sectorContainer = document.getElementById('sector-container')
         let sector = document.createElement('div')
         let sectorLabel = document.createElement('label')
 
-        if (!Sector.previousColour || wheel.length === 0) {
-            this.colour = colours[0]
-            Sector.newAngle = 0
-        } else {
-            this.colour = colours[colours.indexOf(Sector.previousColour) + 1]
-        }
-        Sector.previousColour = this.colour
-        if (Sector.previousColour === colours[colours.length - 1]) {
-            Sector.previousColour = null
-        }
-
         sectorLabel.innerText = this.name
         sectorLabel.classList.add('sector-label')
+
+        if (wheel.length === 0) {
+            Sector.previousColour = colours[colours.length - 1]
+        }
+
+        let newColour = this.nextColour(Sector.previousColour)
+        console.log(Sector.previousColour)
+        console.log(this.nextColour(Sector.previousColour))
+        Sector.previousColour = newColour
 
         sectorContainer.appendChild(sector)
         sector.appendChild(sectorLabel)
         sector.classList.add('sector')
-        sector.style['background-color'] = this.colour
-        sector.style['background'] = `conic-gradient(${this.colour} ${100 / (Sector.default ? colours.length : wheel.length)}%, transparent 25%)`
+        sector.style['background-color'] = newColour
+        sector.style['background'] = `conic-gradient(${newColour} ${100 / wheel.length}%, transparent 25%)`
         sector.style['transform'] = `rotate(${Sector.newAngle}deg)`
         console.log(wheel)
 
-        wheel.push(this.name)
-        Sector.newAngle += 360 / (Sector.default ? colours.length : wheel.length)
+        // wheel.push(this.name)
+        Sector.newAngle += 360 / wheel.length
 
         if (Sector.default) {
             Sector.default = false
@@ -77,8 +79,8 @@ function getInput(event) {
     } else {
         text = event.target.value
     }
-    let array = convertTextToArray(text)
-    array.forEach((element) => new Sector(element))
+    wheel = convertTextToArray(text)
+    wheel.forEach((element) => new Sector(element))
 }
 
 function defaultInput() {
